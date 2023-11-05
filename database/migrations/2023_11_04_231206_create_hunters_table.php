@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\Hunter;
-use App\Models\Role;
+use App\Models\Hunt;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\User;
 
 return new class extends Migration
 {
@@ -13,15 +13,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('hunters', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('firstName');
+            $table->string('lastName');
+            $table->string('dateNais');
             $table->timestamps();
-            $table-> foreignIdFor(Role::class);
+            //Foreign Keys
+            $table-> foreignIdFor(User::class);
+            $table -> foreignIdFor(Hunt::class);
+
         });
     }
 
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('hunters');
     }
 };

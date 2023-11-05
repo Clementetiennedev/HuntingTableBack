@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Hunt;
+use App\Models\Hunter;
+use App\Models\Kill;
 use App\Models\Role;
 use App\Models\User;
 use Database\Factories\RoleFactory;
@@ -18,6 +21,9 @@ class DatabaseSeeder extends Seeder
     {
         $faker = Factory::create('fr_FR');
         $roles = Role::factory(2)->create();
+        $hunter = Hunter::factory(3)->create();
+        $hunt = Hunt::factory(3)->create();
+        $kill = Kill::factory(3)->create();
         for ($i = 0; $i < 30; $i++) {
             User::factory()->create([
                 'name' => $faker->name,

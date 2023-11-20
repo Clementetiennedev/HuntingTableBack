@@ -20,7 +20,8 @@ class KillFactory extends Factory
     {
         return [
             'number' => fake()->numberBetween(1,10),
-            'hunt_id' => '2'
+            'hunt_id' => '2',
+            'specie_id' => '3'
         ];
     }
 }

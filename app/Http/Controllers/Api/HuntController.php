@@ -25,8 +25,12 @@ class HuntController extends Controller
         foreach ($filters as $param => $value) {
             if ($param === 'title') {
                 $query->where('title', $value);
-            } elseif ($param === 'date') {
+            }
+            if ($param === 'date') {
                 $query->where('date', $value);
+            }
+            if ($param === 'id') {
+                $query->where('id', $value);
             }
         }
 

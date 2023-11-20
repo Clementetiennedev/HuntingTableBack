@@ -24,6 +24,9 @@ class SocietyController extends Controller
             if ($param === 'name') {
                 $query->where('name', $value);
             }
+            if ($param === 'id') {
+                $query->where('id', $value);
+            }
         }
 
         $societies = $query->paginate($perPage);

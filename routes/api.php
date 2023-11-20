@@ -16,11 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 //Routes for UserController
-Route::group(['prefix' => 'users'], function(){
-    Route::get('/users', [UserController::class, "index"]);
-    Route::get('/users/{user}', [UserController::class, "show"]);
-});
 
+Route::get('/users', [UserController::class, "index"]);
+Route::get('/users/{user}', [UserController::class, "show"]);
 
 //Routes for HunterController
 Route::get('/hunter', [\App\Http\Controllers\Api\HunterController::class, "index"]);

@@ -24,14 +24,8 @@ class DatabaseSeeder extends Seeder
         $hunter = Hunter::factory(3)->create();
         $hunt = Hunt::factory(3)->create();
         $kill = Kill::factory(3)->create();
-        for ($i = 0; $i < 30; $i++) {
-            User::factory()->create([
-                'name' => $faker->name,
-                'email' => $faker->email,
-                'password' => bcrypt('ypenderie'),
-                'role_id' => 2
-            ]);
-        }
+        $user = User::factory(3) -> create();
+
     }
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

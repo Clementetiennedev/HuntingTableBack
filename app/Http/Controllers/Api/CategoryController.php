@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -23,21 +24,32 @@ class CategoryController extends Controller
         return response()->json($category);
     }
 
-    public function store()
+    public function store(Request $request): JsonResponse
     {
-        $category = Category::with("role")->get()->pluck("email", "role.name");
+        $data = $request->all();
+
+        $category = Category::create($data);
+
+        return response()->json($category, 201);
+    }
+
+    public function update(Request $request, $id): JsonResponse
+    {
+        $data = $request->all();
+
+        $category = Category::findOrFail($id);
+
+        $category->update($data);
+
         return response()->json($category);
     }
 
-    public function update()
+    public function delete($id): JsonResponse
     {
-        $category = Category::with("role")->get()->pluck("email", "role.name");
-        return response()->json($category);
-    }
+        $category = Category::findOrFail($id);
 
-    public function delete()
-    {
-        $category = Category::with("role")->get()->pluck("email", "role.name");
-        return response()->json($category);
+        $category->delete();
+
+        return response()->json(null, 204);
     }
 }

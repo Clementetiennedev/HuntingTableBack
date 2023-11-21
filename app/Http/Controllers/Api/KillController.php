@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kill;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class KillController extends Controller
 {
@@ -27,19 +27,33 @@ class KillController extends Controller
         $kill = Kill::where('user_id', $kill->id);
         return response()->json($kill);
     }
-    //Function pour insérer en bdd
-    public function store(){
-        $user = User::with("role")->get()->pluck("email","role.name");
-        return response()->json($user);
+
+    public function store(Request $request): JsonResponse
+    {
+        $data = $request->all();
+
+        $kill = Kill::create($data);
+
+        return response()->json($kill, 201);
     }
-    //Function pour mettre a jour en bdd
-    public function update(){
-        $user = User::with("role")->get()->pluck("email","role.name");
-        return response()->json($user);
+
+    public function update(Request $request, $id): JsonResponse
+    {
+        $data = $request->all();
+
+        $kill = Kill::findOrFail($id);
+
+        $kill->update($data);
+
+        return response()->json($kill);
     }
-    //Function pour supprimer en bdd
-    public function delete(){
-        $user = User::with("role")->get()->pluck("email","role.name");
-        return response()->json($user);
+
+    public function delete($id): JsonResponse
+    {
+        $kill = Kill::findOrFail($id);
+
+        $kill->delete();
+
+        return response()->json(null, 204);
     }
 }

@@ -38,24 +38,38 @@ class HuntController extends Controller
 
         return response()->json($hunts);
     }
-    //Function pour afficher selon une seule donnée (avec param)
+
     public function show(User $user) : JsonResponse{
-        $user = Hunter::where('id', $user -> id);
+        $user = Hunter::where('id', $user->id);
         return response()->json($user);
     }
-    //Function pour insérer en bdd
-    public function store(){
-        $user = Hunter::with("role")->get()->pluck("email","role.name");
-        return response()->json($user);
+
+    public function store(Request $request): JsonResponse
+    {
+        $data = $request->all();
+
+        $hunt = Hunt::create($data);
+
+        return response()->json($hunt, 201);
     }
-    //Function pour mettre a jour en bdd
-    public function update(){
-        $user = Hunter::with("role")->get()->pluck("email","role.name");
-        return response()->json($user);
+
+    public function update(Request $request, $id): JsonResponse
+    {
+        $data = $request->all();
+
+        $hunt = Hunt::findOrFail($id);
+
+        $hunt->update($data);
+
+        return response()->json($hunt);
     }
-    //Function pour supprimer en bdd
-    public function delete(){
-        $user = Hunter::with("role")->get()->pluck("email","role.name");
-        return response()->json($user);
+
+    public function delete($id): JsonResponse
+    {
+        $hunt = Hunt::findOrFail($id);
+
+        $hunt->delete();
+
+        return response()->json(null, 204);
     }
 }

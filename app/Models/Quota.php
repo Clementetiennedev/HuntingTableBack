@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @method static findOrFail($id)
+ * @method static create(array $data)
+ * @method static where(string $string, mixed $id)
+ */
 class Quota extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;

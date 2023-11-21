@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @method static where(string $string, mixed $id)
+ * @method static create(array $data)
+ * @method static findOrFail($id)
+ */
 class Federation extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;

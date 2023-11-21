@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @method static create(array $data)
+ * @method static findOrFail($id)
+ */
 class Season extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;

@@ -3,35 +3,49 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\Models\Federation;
 use App\Models\Hunter;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class HunterController
 {
-    //Function pour afficher toute les donnée
     public function index() : JsonResponse{
         $hunter = Hunter::all();
         return response()->json($hunter);
     }
-    //Function pour afficher selon une seule donnée (avec param)
-    public function show(User $user) : JsonResponse{
-        $user = Hunter::where('id', $user -> id);
-        return response()->json($user);
+
+    public function show(Hunter $hunter) : JsonResponse{
+        $hunter = Hunter::where('id', $hunter->id);
+        return response()->json($hunter);
     }
-    //Function pour insérer en bdd
-    public function store(){
-        $user = Hunter::with("role")->get()->pluck("email","role.name");
-        return response()->json($user);
+    public function store(Request $request): JsonResponse
+    {
+        $data = $request->all();
+
+        $hunter = Hunter::create($data);
+
+        return response()->json($hunter, 201);
     }
-    //Function pour mettre a jour en bdd
-    public function update(){
-        $user = Hunter::with("role")->get()->pluck("email","role.name");
-        return response()->json($user);
+
+    public function update(Request $request, $id): JsonResponse
+    {
+        $data = $request->all();
+
+        $hunter = Hunter::findOrFail($id);
+
+        $hunter->update($data);
+
+        return response()->json($hunter);
     }
-    //Function pour supprimer en bdd
-    public function delete(){
-        $user = Hunter::with("role")->get()->pluck("email","role.name");
-        return response()->json($user);
+
+    public function delete($id): JsonResponse
+    {
+        $hunter = Hunter::findOrFail($id);
+
+        $hunter->delete();
+
+        return response()->json(null, 204);
     }
 }

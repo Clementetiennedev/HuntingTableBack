@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @method static create(array $data)
+ * @method static findOrFail($id)
+ * @method static where(string $string, mixed $id)
+ */
 class Category extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;

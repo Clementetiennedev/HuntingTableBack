@@ -21,6 +21,7 @@ class HuntController extends Controller
         $filters = $request->except(['limit', 'page']);
 
         $query = Hunt::query();
+        $query->where('statut', 'on');
 
         foreach ($filters as $param => $value) {
             if ($param === 'title') {
@@ -40,7 +41,7 @@ class HuntController extends Controller
     }
 
     public function show(Hunt $hunt) : JsonResponse{
-        return response()->json(Hunter::where('id', $hunt->id));
+        return response()->json($hunt);
     }
 
     public function store(Request $request): JsonResponse
@@ -67,7 +68,8 @@ class HuntController extends Controller
     {
         $hunt = Hunt::findOrFail($id);
 
-        $hunt->delete();
+        $hunt->statut = 'deleted';
+        $hunt->save();
 
         return response()->json(null, 204);
     }

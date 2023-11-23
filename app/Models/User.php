@@ -11,6 +11,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @method static firstOrFail($id)
+ */
 class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -68,7 +71,7 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     //RELATION
-    public function kiki(): BelongsTo{
-        return $this->belongsTo(Role::class);
+    public function role(): HasOne{
+        return $this->hasOne(Role::class);
     }
 }

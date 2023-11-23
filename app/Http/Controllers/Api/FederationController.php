@@ -14,6 +14,7 @@ class FederationController extends Controller
         $filters = $request->except(['limit', 'page']);
 
         $query = Federation::query();
+        $query->where('statut', 'on');
 
         foreach ($filters as $param => $value) {
             if ($param === 'name') {
@@ -31,7 +32,6 @@ class FederationController extends Controller
 
     public function show(Federation $federation): JsonResponse
     {
-        $federation = Federation::where('id', $federation->id);
         return response()->json($federation);
     }
 
@@ -59,7 +59,8 @@ class FederationController extends Controller
     {
         $federation = Federation::findOrFail($id);
 
-        $federation->delete();
+        $federation->statut = 'deleted';
+        $federation->save();
 
         return response()->json(null, 204);
     }

@@ -55,28 +55,6 @@ class AuthController extends Controller
     }
 
         /**
-         * Get the authenticated User.
-         *
-         * @return \Illuminate\Http\JsonResponse
-         */
-        public function me()
-        {
-            return response()->json(auth()->user());
-        }
-
-        /**
-         * Log the user out (Invalidate the token).
-         *
-         * @return \Illuminate\Http\JsonResponse
-         */
-        public function logout()
-        {
-            auth()->logout();
-
-            return response()->json(['message' => 'Successfully logged out']);
-        }
-
-        /**
          * Refresh a token.
          *
          * @return \Illuminate\Http\JsonResponse
@@ -147,4 +125,26 @@ class AuthController extends Controller
         ]);
     }
 
+    public function logout(Request $request) : JsonResponse
+    {
+        $user = $request->user();
+        if ($user) {
+            $tokenId = $user->currentAccessToken()->id;
+            $user->tokens()->where('id', $tokenId)->delete();
+            return response()->json(['message' => ('lang.logout')]);
+        }
+        return response()->json(['error' => ('lang.unauthorized')], 403);
+    }
+
+    public function me(Request $request) : JsonResponse
+    {
+        $user = User::where('id', $request->user()->id)
+            ->with('rank', 'role', 'badges', 'medias', 'comments', 'likes', 'badges.badge')
+            ->first();
+
+        if ($user) {
+            return response()->json($user);
+        }
+        return response()->json(['error' => ('lang.unauthorized')], 403);
+    }
 }

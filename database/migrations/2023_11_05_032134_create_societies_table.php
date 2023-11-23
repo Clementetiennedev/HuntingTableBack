@@ -2,6 +2,8 @@
 
 use App\Models\Federation;
 use App\Models\User;
+use App\Models\Hunt;
+use App\Models\Season;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,11 +19,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
+            $table->string('statut')->default('on');
             $table->timestamps();
 
             //Foreign key
             $table->foreignIdFor(Federation::class);
             $table-> foreignIdFor(User::class);
+            $table-> foreignIdFor(Season::class)->nullable()->constrained()->cascadeOnDelete();
         });
     }
 

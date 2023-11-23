@@ -25,7 +25,9 @@ class Season extends Model
         'dateDebut',
         'dateFin',
         'title',
-        'specie_id'
+        'animal',
+        'quota',
+        'statut'
     ];
 
     /**
@@ -43,9 +45,4 @@ class Season extends Model
      */
     protected $casts = [
     ];
-
-    //RELATION
-    public function specie(): HasMany{
-        return $this-> hasMany(Specie::class);
-    }
 }

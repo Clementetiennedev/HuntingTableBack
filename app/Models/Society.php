@@ -25,7 +25,8 @@ class Society extends Model
     protected $fillable = [
         'name',
         'description',
-        'federation_id',
+        'statut',
+        'season_id',
     ];
 
     /**
@@ -47,7 +48,11 @@ class Society extends Model
     /**
      * Relations
      */
-    public function federation(): HasOne{
-        return $this-> hasOne(Federation::class);
+    public function user(): HasOne{
+        return $this->hasOne(User::class);
+    }
+
+    public function season(): HasOne{
+        return $this-> hasOne(Season::class);
     }
 }

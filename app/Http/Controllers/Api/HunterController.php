@@ -12,12 +12,13 @@ use Illuminate\Http\Request;
 class HunterController
 {
     public function index() : JsonResponse{
-        $hunter = Hunter::all();
-        return response()->json($hunter);
+        $query = Hunter::query();
+        $query->where('statut', 'on');
+        $hunters = $query->get();
+        return response()->json($hunters);
     }
 
     public function show(Hunter $hunter) : JsonResponse{
-        $hunter = Hunter::where('id', $hunter->id);
         return response()->json($hunter);
     }
     public function store(Request $request): JsonResponse
@@ -44,7 +45,8 @@ class HunterController
     {
         $hunter = Hunter::findOrFail($id);
 
-        $hunter->delete();
+        $hunter->statut = 'deleted';
+        $hunter->save();
 
         return response()->json(null, 204);
     }

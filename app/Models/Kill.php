@@ -22,6 +22,8 @@ class Kill extends Model
      */
     protected $fillable = [
         'number',
+        'animal',
+        'statut',
     ];
 
     /**

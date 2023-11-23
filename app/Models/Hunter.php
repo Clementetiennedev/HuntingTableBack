@@ -27,7 +27,8 @@ class Hunter extends Model
     protected $fillable = [
         'firstName',
         'lastName',
-        'dateNais',
+        'phone',
+        'statut'
     ];
 
     /**

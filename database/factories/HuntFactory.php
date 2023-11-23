@@ -20,8 +20,7 @@ class HuntFactory extends Factory
             'date' => fake()->date,
             'title' => fake()->title,
             'description' => fake()->text(50),
-            'participant' => fake()-> firstName(),
-            'hunter_id' => '1',
+            'hunter_id' => 1,
         ];
     }
 }

@@ -3,10 +3,7 @@
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\SocietyController;
 use App\Http\Controllers\Api\FederationController;
-use App\Http\Controllers\Api\SpeciesController;
 use App\Http\Controllers\Api\SeasonController;
-use App\Http\Controllers\Api\QuotaController;
-use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\HuntController;
 use App\Http\Controllers\Api\KillController;
 use App\Http\Controllers\Api\HunterController;
@@ -28,7 +25,6 @@ use App\Http\Controllers\AuthController;
 Route::middleware('auth')->get('/users', [UserController::class, "index"]);
 Route::get('/users', [UserController::class, "index"]);
 Route::get('/users/{user}', [UserController::class, "show"]);
-Route::post('/users/', [UserController::class, "store"]);
 Route::patch('/users/{user}', [UserController::class, "update"]);
 Route::delete('/users/{user}', [UserController::class, "delete"]);
 
@@ -53,34 +49,12 @@ Route::post('/kill/', [KillController::class, "store"]);
 Route::patch('/kill/{kill}', [KillController::class, "update"]);
 Route::delete('/kill/{kill}', [KillController::class, "delete"]);
 
-//Routes for CategoryController
-Route::get('/category', [CategoryController::class, "index"]);
-Route::get('/category/{category}', [CategoryController::class, "show"]);
-Route::post('/category/', [CategoryController::class, "store"]);
-Route::patch('/category/{category}', [CategoryController::class, "update"]);
-Route::delete('/category/{category}', [CategoryController::class, "delete"]);
-
-//Routes for DepartmentController
-Route::get('/department', [\App\Http\Controllers\Api\DepartmentController::class, "index"]);
-Route::get('/department/{department}', [\App\Http\Controllers\Api\DepartmentController::class, "show"]);
-
 //Routes for FederationController
 Route::get('/federation', [FederationController::class, "index"]);
 Route::get('/federation/{federation}', [FederationController::class, "show"]);
 Route::post('/federation/', [FederationController::class, "store"]);
 Route::patch('/federation/{federation}', [FederationController::class, "update"]);
 Route::delete('/federation/{federation}', [FederationController::class, "delete"]);
-
-//Routes for QuotaController
-Route::get('/quota', [QuotaController::class, "index"]);
-Route::get('/quota/{quota}', [QuotaController::class, "show"]);
-Route::post('/quota/', [QuotaController::class, "store"]);
-Route::patch('/quota/{quota}', [QuotaController::class, "update"]);
-Route::delete('/quota/{quota}', [QuotaController::class, "delete"]);
-
-//Routes for RoleController
-Route::get('/role', [\App\Http\Controllers\Api\RoleController::class, "index"]);
-Route::get('/role/{role}', [\App\Http\Controllers\Api\RoleController::class, "show"]);
 
 //Routes for SeasonController
 Route::get('/season', [SeasonController::class, "index"]);
@@ -96,13 +70,10 @@ Route::post('/society/', [SocietyController::class, "store"]);
 Route::patch('/society/{society}', [SocietyController::class, "update"]);
 Route::delete('/society/{society}', [SocietyController::class, "delete"]);
 
-//Routes for SpeciesController
-Route::get('/species', [SpeciesController::class, "index"]);
-Route::get('/species/{species}', [SpeciesController::class, "show"]);
-Route::post('/species/', [SpeciesController::class, "store"]);
-Route::patch('/species/{species}', [SpeciesController::class, "update"]);
-Route::delete('/species/{species}', [SpeciesController::class, "delete"]);
-
+Route::post('/login', [AuthController::class, "login"])->name('login');
+Route::post('/register', [AuthController::class, 'register'])->name('api.reg');
+Route::post('/logout', [AuthController::class, 'logout'])->name('api.log');
+Route::post('/me', [AuthController::class, 'me'])->name('api.me');
 Route::group([
 
     'middleware' => 'api',

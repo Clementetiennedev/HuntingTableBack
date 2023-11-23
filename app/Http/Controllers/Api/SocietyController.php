@@ -10,13 +10,6 @@ use Illuminate\Http\Request;
 
 class SocietyController extends Controller
 {
-    protected $societyRepository;
-
-    public function __construct(SocietyRepository $societyRepository)
-    {
-        $this->societyRepository = $societyRepository;
-    }
-
     /**
      * Return all societies
      * @param Request $request
@@ -27,6 +20,7 @@ class SocietyController extends Controller
         $filters = $request->except(['limit', 'page']);
 
         $query = Society::query();
+        $query->where('statut', 'on');
 
         foreach ($filters as $param => $value) {
             if ($param === 'name') {
@@ -51,7 +45,6 @@ class SocietyController extends Controller
 
     public function show(Society $society): JsonResponse
     {
-        $society = Society::where('id', $society -> id);
         return response()->json($society);
     }
 
@@ -79,9 +72,9 @@ class SocietyController extends Controller
     {
         $society = Society::firstOrFail($id);
 
-        $society->delete();
+        $society->statut = 'deleted';
+        $society->save();
 
         return response()->json(null, 204);
     }
-
 }

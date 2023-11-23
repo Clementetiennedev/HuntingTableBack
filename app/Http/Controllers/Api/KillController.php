@@ -26,7 +26,6 @@ class KillController extends Controller
      * @return JsonResponse
      */
     public function show($kill) : JsonResponse{
-        $kill = Kill::where('user_id', $kill->id);
         return response()->json($kill);
     }
 

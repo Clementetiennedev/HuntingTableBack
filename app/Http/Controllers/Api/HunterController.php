@@ -19,7 +19,6 @@ class HunterController
     }
 
     public function show(Hunter $hunter) : JsonResponse{
-        $hunter = Hunter::where('id', $hunter->id);
         return response()->json($hunter);
     }
     public function store(Request $request): JsonResponse

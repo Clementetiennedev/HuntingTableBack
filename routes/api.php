@@ -72,6 +72,8 @@ Route::delete('/society/{society}', [SocietyController::class, "delete"]);
 
 Route::post('/login', [AuthController::class, "login"])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('api.reg');
+Route::post('/logout', [AuthController::class, 'logout'])->name('api.log');
+Route::post('/me', [AuthController::class, 'me'])->name('api.me');
 Route::group([
 
     'middleware' => 'api',

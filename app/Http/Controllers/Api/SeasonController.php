@@ -22,7 +22,6 @@ class SeasonController extends Controller
 
     public function show(Season $season): JsonResponse
     {
-        $season = Season::where('id', $season -> id);
         return response()->json($season);
     }
 

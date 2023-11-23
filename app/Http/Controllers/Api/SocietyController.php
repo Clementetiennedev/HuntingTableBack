@@ -45,7 +45,6 @@ class SocietyController extends Controller
 
     public function show(Society $society): JsonResponse
     {
-        $society = Society::where('id', $society -> id);
         return response()->json($society);
     }
 

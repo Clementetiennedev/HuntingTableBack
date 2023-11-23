@@ -32,7 +32,6 @@ class FederationController extends Controller
 
     public function show(Federation $federation): JsonResponse
     {
-        $federation = Federation::where('id', $federation->id);
         return response()->json($federation);
     }
 

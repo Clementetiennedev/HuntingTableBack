@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -24,7 +25,8 @@ class Federation extends Model
      */
     protected $fillable = [
         'name',
-        'department_id'
+        'department',
+        'statut'
     ];
 
     /**
@@ -43,8 +45,7 @@ class Federation extends Model
     protected $casts = [
     ];
 
-    //RELATION
-    public function department(): HasOne{
-        return $this->hasOne(Department::class);
-    }
+    //public function societies(): HasMany{
+    //    return $this-> hasMany(Society::class);
+    //}
 }

@@ -20,7 +20,7 @@ class HunterFactory extends Factory
         return [
             'firstName' => fake()->firstName,
             'lastName' => fake()->lastName,
-            'dateNais' => fake()->dateTime,
+            'phone' => fake()->phoneNumber,
             'user_id' => '2',
             'hunt_id' => '1',
         ];

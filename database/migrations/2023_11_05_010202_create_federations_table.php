@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Category;
+use App\Models\Department;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,13 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('species', function (Blueprint $table) {
+        Schema::create('federations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string("name");
+            $table->string("department");
+            $table->string('statut')->default('on');
             $table->timestamps();
-
-            //Foreign key
-            $table-> foreignIdFor(Category::class);
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('species');
+        Schema::dropIfExists('federations');
     }
 };

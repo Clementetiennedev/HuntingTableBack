@@ -1,10 +1,10 @@
 <?php
 
 use App\Models\Hunt;
-use App\Models\Specie;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\User;
 
 return new class extends Migration
 {
@@ -13,14 +13,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kills', function (Blueprint $table) {
+        Schema::create('hunters', function (Blueprint $table) {
             $table->id();
-            $table -> integer('number');
-            $table->string('animal');
+            $table->string('firstName');
+            $table->string('lastName');
+            $table->string('phone');
             $table->string('statut')->default('on');
             $table->timestamps();
-            //Foreign key
-            $table->foreignIdFor(Hunt::class);
+            //Foreign Keys
+            $table-> foreignIdFor(User::class);
+            $table -> foreignIdFor(Hunt::class)->nullable();
+
         });
     }
 
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kills');
+        Schema::dropIfExists('hunters');
     }
 };

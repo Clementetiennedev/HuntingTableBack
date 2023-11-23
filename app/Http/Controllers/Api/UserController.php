@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class UserController
 {
@@ -13,8 +13,10 @@ class UserController
      * @return JsonResponse
      */
     public function index() : JsonResponse{
-        $user = User::all();
-        return response()->json($user);
+        $query = User::query();
+        $query->where('statut', 'on');
+        $users = $query->get();
+        return response()->json($users);
     }
 
     /**
@@ -27,21 +29,24 @@ class UserController
         return response()->json($user);
     }
 
-    //Function pour insérer en bdd
-    public function store(){
-        $user = User::with("role")->get()->pluck("email","role.name");
-        return response()->json($user);
+    public function update(Request $request, $id): JsonResponse
+    {
+        $data = $request->all();
+
+        $society = User::firstOrFail($id);
+
+        $society->update($data);
+
+        return response()->json($society);
     }
 
-    //Function pour mettre a jour en bdd
-    public function update(){
-        $user = User::with("role")->get()->pluck("email","role.name");
-        return response()->json($user);
-    }
+    public function delete($id): JsonResponse
+    {
+        $society = User::firstOrFail($id);
 
-    //Function pour supprimer en bdd
-    public function delete(){
-        $user = User::with("role")->get()->pluck("email","role.name");
-        return response()->json($user);
+        $society->statut = 'deleted';
+        $society->save();
+
+        return response()->json(null, 204);
     }
 }

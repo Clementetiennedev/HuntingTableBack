@@ -14,7 +14,9 @@ class SeasonController extends Controller
      * @return JsonResponse
      */
     public function index() : JsonResponse{
-        $seasons = Season::all();
+        $query = Season::query();
+        $query->where('statut', 'on');
+        $seasons = $query->get();
         return response()->json($seasons);
     }
 
@@ -48,7 +50,8 @@ class SeasonController extends Controller
     {
         $season = Season::findOrFail($id);
 
-        $season->delete();
+        $season->statut = 'deleted';
+        $season->save();
 
         return response()->json(null, 204);
     }

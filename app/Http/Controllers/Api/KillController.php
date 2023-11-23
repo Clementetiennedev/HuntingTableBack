@@ -14,8 +14,10 @@ class KillController extends Controller
      * @return JsonResponse
      */
     public function index() : JsonResponse{
-        $kill = Kill::all();
-        return response()->json($kill);
+        $query = Kill::query();
+        $query->where('statut', 'on');
+        $categories = $query->get();
+        return response()->json($categories);
     }
 
     /**
@@ -52,7 +54,8 @@ class KillController extends Controller
     {
         $kill = Kill::findOrFail($id);
 
-        $kill->delete();
+        $kill->statut = 'deleted';
+        $kill->save();
 
         return response()->json(null, 204);
     }

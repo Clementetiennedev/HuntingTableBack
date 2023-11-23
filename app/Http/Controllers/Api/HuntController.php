@@ -39,9 +39,8 @@ class HuntController extends Controller
         return response()->json($hunts);
     }
 
-    public function show(User $user) : JsonResponse{
-        $user = Hunter::where('id', $user->id);
-        return response()->json($user);
+    public function show(Hunt $hunt) : JsonResponse{
+        return response()->json(Hunter::where('id', $hunt->id));
     }
 
     public function store(Request $request): JsonResponse

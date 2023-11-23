@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\HuntController;
 use App\Http\Controllers\Api\KillController;
 use App\Http\Controllers\Api\HunterController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 //Routes for UserController
+Route::middleware('auth')->get('/users', [UserController::class, "index"]);
 Route::get('/users', [UserController::class, "index"]);
 Route::get('/users/{user}', [UserController::class, "show"]);
 Route::post('/users/', [UserController::class, "store"]);
@@ -100,3 +102,16 @@ Route::get('/species/{species}', [SpeciesController::class, "show"]);
 Route::post('/species/', [SpeciesController::class, "store"]);
 Route::patch('/species/{species}', [SpeciesController::class, "update"]);
 Route::delete('/species/{species}', [SpeciesController::class, "delete"]);
+
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function ($router) {
+
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+
+});

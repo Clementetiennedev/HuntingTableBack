@@ -17,7 +17,6 @@ use App\Http\Controllers\AuthController;
 */
 
 //Routes for UserController
-
 Route::middleware('auth')->get('/users', [UserController::class, "index"]);
 Route::get('/users/{user}', [UserController::class, "show"]);
 
@@ -31,7 +30,9 @@ Route::get('/hunt/{hunt}', [\App\Http\Controllers\Api\HuntController::class, "sh
 //Routes for KillController
 Route::get('/kill', [\App\Http\Controllers\Api\KillController::class], "index");
 Route::get('/kill/{idUser}', [\App\Http\Controllers\Api\KillController::class], "show");
-Route::post('login', [\App\Http\Controllers\AuthController::class, "login"]);
+Route::post('/login', [\App\Http\Controllers\AuthController::class, "login"])->name('login');
+Route::post('/register', [\App\Http\Controllers\AuthController::class, 'register'])->name('api.reg');
+
 
 Route::group([
 

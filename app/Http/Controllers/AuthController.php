@@ -10,16 +10,6 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    /**
-         * Create a new AuthController instance.
-         *
-         * @return void
-         */
-        public function __construct()
-        {
-            $this->middleware('auth:api', ['except' => ['login']]);
-        }
-
         /**
          * Get a JWT via given credentials.
          *
@@ -111,4 +101,50 @@ class AuthController extends Controller
                 'expires_in' => auth()->factory()->getTTL() * 60
             ]);
         }
+
+        public function register(Request $request) : JsonResponse
+    {
+        $messages = [
+            'name.required' => __('lang.name.required'),
+            'name.unique' => __('lang.name.unique'),
+            'email.required' => __('lang.email.required'),
+            'email.email' => __('lang.email.email'),
+            'email.unique' => __('lang.email.unique'),
+            'password.required' => __('lang.password.required'),
+            'password.min' => __('lang.password.min'),
+            'confirm_password.required' => __('lang.confirm_password.required'),
+            'confirm_password.same' => __('lang.confirm_password.same'),
+            'role_id.required' => __('lang.role_id.required'),
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:users,name',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8',
+            'confirm_password' => 'required|same:password',
+            'role_id' => 'required',
+        ], $messages);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $user = User::create(
+            [
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'password' => Hash::make($request->input('password')),
+                'email_verified_at' => now(),
+                'role_id' => $request->input('role_id'),
+            ]
+        );
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+        ]);
+    }
+
 }

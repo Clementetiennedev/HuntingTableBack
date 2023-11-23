@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('email');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
+            $table->rememberToken()->nullable();
+            $table->string('refresh_token')->nullable();
             $table->timestamps();
             $table-> foreignIdFor(Role::class);
         });

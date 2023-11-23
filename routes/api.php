@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 //Routes for UserController
-
-Route::get('/users', [UserController::class, "index"]);
+Route::middleware('auth')->get('/users', [UserController::class, "index"]);
 Route::get('/users/{user}', [UserController::class, "show"]);
 
 //Routes for HunterController
@@ -25,8 +25,24 @@ Route::get('/hunter', [\App\Http\Controllers\Api\HunterController::class, "index
 
 //Routes for HuntController
 Route::get('/hunt', [\App\Http\Controllers\Api\HuntController::class, "index"]);
-Route::get('/hunt/{idUser}', [\App\Http\Controllers\Api\HuntController::class, "show"]);
+Route::get('/hunt/{hunt}', [\App\Http\Controllers\Api\HuntController::class, "show"]);
 
 //Routes for KillController
 Route::get('/kill', [\App\Http\Controllers\Api\KillController::class], "index");
 Route::get('/kill/{idUser}', [\App\Http\Controllers\Api\KillController::class], "show");
+Route::post('/login', [\App\Http\Controllers\AuthController::class, "login"])->name('login');
+Route::post('/register', [\App\Http\Controllers\AuthController::class, 'register'])->name('api.reg');
+
+
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function ($router) {
+
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+
+});

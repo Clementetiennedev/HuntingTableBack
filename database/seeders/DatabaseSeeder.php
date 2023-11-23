@@ -9,6 +9,8 @@ use App\Models\Hunter;
 use App\Models\Kill;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Society;
+use App\Models\Season;
 use Database\Factories\DepartmentFactory;
 use Database\Factories\RoleFactory;
 use Faker\Factory;
@@ -27,5 +29,7 @@ class DatabaseSeeder extends Seeder
         Hunter::factory(3)->create();
         Hunt::factory(3)->create();
         Kill::factory(3)->create();
+        Season::factory(3)->create();
+        Society::factory(3)->create();
     }
 }

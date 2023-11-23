@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken()->nullable();
             $table->string('refresh_token')->nullable();
+            $table->string('role');
             $table->timestamps();
-            $table-> foreignIdFor(Role::class);
         });
     }
 

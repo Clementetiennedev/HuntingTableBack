@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @method static firstOrFail($id)
+ * @method static where(string $string, mixed $id)
+ * @method static create(array $data)
+ */
 class Society extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;

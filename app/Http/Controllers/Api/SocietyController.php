@@ -3,12 +3,20 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\SocietyRepository;
 use App\Models\Society;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class SocietyController extends Controller
 {
+    protected $societyRepository;
+
+    public function __construct(SocietyRepository $societyRepository)
+    {
+        $this->societyRepository = $societyRepository;
+    }
+
     /**
      * Return all societies
      * @param Request $request
@@ -26,6 +34,13 @@ class SocietyController extends Controller
             }
             if ($param === 'id') {
                 $query->where('id', $value);
+            }
+            if ($param === 'deparment') {
+                //$this->societyRepository->filterByDepartment($query, $value);
+                $query->join('federations', 'federations.id', '=', 'societies.federation_id')
+                    ->join('departments', 'departments.id', '=', 'federations.department_id')
+                    ->where('departments.id', $value);
+                //$query->where('id', $value);
             }
         }
 

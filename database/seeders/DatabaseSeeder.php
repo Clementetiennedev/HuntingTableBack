@@ -26,7 +26,6 @@ class DatabaseSeeder extends Seeder
         Hunt::factory(3)->create();
         Kill::factory(3)->create();
         User::factory(3) -> create();
-        Department::factory(1) -> create();
-
+        //Department::factory(1) -> create();
     }
 }

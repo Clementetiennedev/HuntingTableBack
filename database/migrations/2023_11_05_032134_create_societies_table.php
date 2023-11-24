@@ -18,13 +18,13 @@ return new class extends Migration
         Schema::create('societies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->string('statut')->default('on');
             $table->timestamps();
 
             //Foreign key
             $table->foreignIdFor(Federation::class);
-            $table-> foreignIdFor(User::class);
+            $table-> foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table-> foreignIdFor(Season::class)->nullable()->constrained()->cascadeOnDelete();
         });
     }

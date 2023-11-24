@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
     {
         Factory::create('fr_FR');
         Role::factory(1) -> create();
-        User::factory(3) -> create();
+        User::factory(50) -> create();
         Hunter::factory(3)->create();
         Hunt::factory(3)->create();
         Kill::factory(3)->create();

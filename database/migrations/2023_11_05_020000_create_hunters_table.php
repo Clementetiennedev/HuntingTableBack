@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('statut')->default('on');
             $table->timestamps();
             //Foreign Keys
-            $table-> foreignIdFor(User::class);
+            $table-> foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table -> foreignIdFor(Hunt::class)->nullable();
 
         });

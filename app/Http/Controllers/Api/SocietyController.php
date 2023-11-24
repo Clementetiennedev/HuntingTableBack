@@ -20,7 +20,8 @@ class SocietyController extends Controller
         $filters = $request->except(['limit', 'page']);
 
         $query = Society::query();
-        $query->where('statut', 'on');
+        $query->select('societies.*')
+            ->where('societies.statut', 'on');
 
         foreach ($filters as $param => $value) {
             if ($param === 'name') {
@@ -29,12 +30,9 @@ class SocietyController extends Controller
             if ($param === 'id') {
                 $query->where('id', $value);
             }
-            if ($param === 'deparment') {
-                //$this->societyRepository->filterByDepartment($query, $value);
+            if ($param === 'department') {
                 $query->join('federations', 'federations.id', '=', 'societies.federation_id')
-                    ->join('departments', 'departments.id', '=', 'federations.department_id')
-                    ->where('departments.id', $value);
-                //$query->where('id', $value);
+                    ->where('federations.department', $value);
             }
         }
 

@@ -74,4 +74,14 @@ class User extends Authenticatable implements JWTSubject
     public function role(): HasOne{
         return $this->hasOne(Role::class);
     }
+
+    public function hunter()
+    {
+        return $this->hasOne(Hunter::class);
+    }
+
+    public function hunts()
+    {
+        return $this->hasManyThrough(Hunt::class, Hunter::class);
+    }
 }

@@ -73,4 +73,23 @@ class HuntController extends Controller
 
         return response()->json(null, 204);
     }
+
+    public function getHuntsForCurrentUser(Request $request)
+{
+    try {
+        $user = auth()->user();
+
+        $user = User::where('id', $user->id)->get()->pluck('hunts');
+        if ($user) {
+            return response()->json([
+                'data' => $user,
+            ]);
+        }
+
+        return response()->json(['message' => 'Aucun chasseur associé à cet utilisateur.'], 404);
+    } catch (\Exception $e) {
+        return response($e -> getMessage());
+    }
+
+}
 }

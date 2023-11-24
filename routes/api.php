@@ -41,6 +41,9 @@ Route::get('/hunt/{hunt}', [HuntController::class, "show"]);
 Route::post('/hunt/', [HuntController::class, "store"]);
 Route::patch('/hunt/{hunt}', [HuntController::class, "update"]);
 Route::delete('/hunt/{hunt}', [HuntController::class, "delete"]);
+Route::get('/hunts/current', [HuntController::class, "getHuntsForCurrentUser"])->middleware('auth:sanctum');
+//Route::middleware('auth:api')->get('/hunts/current', [HuntController::class, "getHuntsForCurrentUser"]);
+
 
 //Routes for KillController
 Route::get('/kill', [KillController::class, "index"]);

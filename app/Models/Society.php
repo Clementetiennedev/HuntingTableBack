@@ -26,6 +26,8 @@ class Society extends Model
         'name',
         'description',
         'statut',
+        'user_id',
+        'federation_id',
         'season_id',
     ];
 

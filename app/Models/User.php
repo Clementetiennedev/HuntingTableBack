@@ -13,6 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 /**
  * @method static firstOrFail($id)
+ * @method static create(array $array)
  */
 class User extends Authenticatable implements JWTSubject
 {

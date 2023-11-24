@@ -28,6 +28,8 @@ class Hunter extends Model
         'firstName',
         'lastName',
         'phone',
+        'user_id',
+        'hunt_id',
         'statut'
     ];
 

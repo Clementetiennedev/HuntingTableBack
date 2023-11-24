@@ -33,19 +33,19 @@ class UserController
     {
         $data = $request->all();
 
-        $society = User::firstOrFail($id);
+        $user = User::firstOrFail($id);
 
-        $society->update($data);
+        $user->update($data);
 
-        return response()->json($society);
+        return response()->json($user);
     }
 
     public function delete($id): JsonResponse
     {
-        $society = User::firstOrFail($id);
+        $user = User::firstOrFail($id);
 
-        $society->statut = 'deleted';
-        $society->save();
+        $user->statut = 'deleted';
+        $user->save();
 
         return response()->json(null, 204);
     }

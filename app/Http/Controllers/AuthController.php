@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hunter;
+use App\Models\Role;
+use App\Models\Society;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -112,6 +115,29 @@ class AuthController extends Controller
                 'role_id' => $request->input('role_id'),
             ]
         );
+
+        if ($request->input('role_id') === Role::HUNTER_ID) {
+            Hunter::create(
+                [
+                    'lastName' => $request->input('lastName'),
+                    'firstName' => $request->input('firstName'),
+                    'phone' => $request->input('phone'),
+                    'user_id' => $user->id,
+                ]
+            );
+
+        }
+        if ($request->input('role_id') === Role::SOCIETY_ID) {
+            Society::create(
+                [
+                    'name' => $request->input('name'),
+                    'description' => $request->input('description'),
+                    'federation_id' => $request->input('federation_id'),
+                    'user_id' => $user->id,
+                ]
+            );
+        }
+
 
         $token = $user->createToken('auth_token')->plainTextToken;
 

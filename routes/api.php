@@ -42,6 +42,7 @@ Route::post('/hunt/', [HuntController::class, "store"]);
 Route::patch('/hunt/{hunt}', [HuntController::class, "update"]);
 Route::delete('/hunt/{hunt}', [HuntController::class, "delete"]);
 Route::get('/hunts/current', [HuntController::class, "getHuntsForCurrentUser"])->middleware('auth:sanctum');
+Route::post('/hunts/stores', [HuntController::class, "stores"])->middleware('auth:sanctum');
 //Route::middleware('auth:api')->get('/hunts/current', [HuntController::class, "getHuntsForCurrentUser"]);
 
 
@@ -75,7 +76,7 @@ Route::delete('/society/{society}', [SocietyController::class, "delete"]);
 
 Route::post('/login', [AuthController::class, "login"])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('api.reg');
-Route::post('/logout', [AuthController::class, 'logout'])->name('api.log');
+Route::post('/logout', [AuthController::class, 'logout'])->name('api.log')->middleware('auth:sanctum');
 Route::post('/me', [AuthController::class, 'me'])->name('api.me');
 Route::group([
 

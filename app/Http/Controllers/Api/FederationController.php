@@ -10,24 +10,11 @@ use Illuminate\Http\Request;
 class FederationController extends Controller
 {
     public function index(Request $request) : JsonResponse{
-        $perPage = $request->input('limit', 10);
-        $filters = $request->except(['limit', 'page']);
+        $federations = Federation::all();
 
-        $query = Federation::query();
-        $query->where('statut', 'on');
-
-        foreach ($filters as $param => $value) {
-            if ($param === 'name') {
-                $query->where('name', $value);
-            }
-            if ($param === 'id') {
-                $query->where('id', $value);
-            }
-        }
-
-        $federations = $query->paginate($perPage);
-
-        return response()->json($federations);
+        return response()->json([
+            'data' => $federations,
+        ]);
     }
 
     public function show(Federation $federation): JsonResponse

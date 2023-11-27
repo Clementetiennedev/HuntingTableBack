@@ -23,7 +23,9 @@ class Hunt extends Model
         'date',
         'title',
         'description',
-        'statut'
+        'statut',
+        'hunter_id',
+        'society_id'
     ];
 
     /**

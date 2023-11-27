@@ -115,8 +115,7 @@ class AuthController extends Controller
                 'role_id' => $request->input('role_id'),
             ]
         );
-
-        if ($request->input('role_id') === Role::HUNTER_ID) {
+        if ($request->input('role_id') === "2") {
             Hunter::create(
                 [
                     'lastName' => $request->input('lastName'),
@@ -127,11 +126,12 @@ class AuthController extends Controller
             );
 
         }
-        if ($request->input('role_id') === Role::SOCIETY_ID) {
+        if ($request->input('role_id') === "3") {
             Society::create(
                 [
                     'name' => $request->input('name'),
                     'description' => $request->input('description'),
+                    'phone' => $request->input('phone'),
                     'federation_id' => $request->input('federation_id'),
                     'user_id' => $user->id,
                 ]
@@ -149,7 +149,8 @@ class AuthController extends Controller
 
     public function logout(Request $request) : JsonResponse
     {
-        $user = $request->user();
+        $user = auth()->user();
+        dd($user);
         if ($user) {
             $tokenId = $user->currentAccessToken()->id;
             $user->tokens()->where('id', $tokenId)->delete();

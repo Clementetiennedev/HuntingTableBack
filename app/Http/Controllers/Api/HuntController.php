@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Hunt;
 use App\Models\Hunter;
+use App\Models\Society;
 use App\Models\User;
+use App\Models\Kill;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -67,29 +69,62 @@ class HuntController extends Controller
     public function delete($id): JsonResponse
     {
         $hunt = Hunt::findOrFail($id);
-
-        $hunt->statut = 'deleted';
-        $hunt->save();
+        $hunt->delete();
 
         return response()->json(null, 204);
     }
 
     public function getHuntsForCurrentUser(Request $request)
-{
-    try {
+    {
+        try {
+            $user = auth()->user();
+
+            $user = User::where('id', $user->id)->get()->pluck('hunts');
+
+            if ($user) {
+                return response()->json([
+                    'data' => $user,
+                ]);
+            }
+
+            return response()->json(['message' => 'Aucun chasseur associé à cet utilisateur.'], 404);
+        } catch (\Exception $e) {
+            return response($e -> getMessage());
+        }
+
+    }
+
+    public function stores(Request $request)
+    {
+
         $user = auth()->user();
 
-        $user = User::where('id', $user->id)->get()->pluck('hunts');
-        if ($user) {
-            return response()->json([
-                'data' => $user,
+        if ($user->role_id == 2) {
+            $hunter = Hunter::where('user_id', $user->id)->first();
+            $hunt = Hunt::create([
+                'title' => $request->input('title'),
+                'date' => $request->input('date'),
+                'description' => $request->input('description'),
+                'hunter_id' => $hunter->id,
+            ]);
+        } elseif ($user->role_id == 3) {
+            $society = Society::where('user_id', $user->id)->first();
+            $hunt = Hunt::create([
+                'title' => $request->input('title'),
+                'date' => $request->input('date'),
+                'description' => $request->input('description'),
+                'society_id' => $society->id,
             ]);
         }
 
-        return response()->json(['message' => 'Aucun chasseur associé à cet utilisateur.'], 404);
-    } catch (\Exception $e) {
-        return response($e -> getMessage());
-    }
+        foreach ($request->input('rows') as $row) {
+            Kill::create([
+                'hunt_id' => $hunt->id,
+                'animal' => $row['animal'],
+                'number' => $row['number'],
+            ]);
+        }
 
-}
+        return response()->json(['message' => 'Data saved successfully']);
+    }
 }

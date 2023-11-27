@@ -47,7 +47,7 @@
 
 <div class="container">
     <h2>Ajouter un utilisateur</h2>
-
+    <a href="/user" class="btn btn-sm btn-danger">Retour</a>
     <form action="/create/user" method="POST" class="form-group">
         @csrf
 

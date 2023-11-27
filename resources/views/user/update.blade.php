@@ -46,7 +46,7 @@
 
 <div class="container">
     <h2>Modifier l'utilisateur</h2>
-
+    <a href="/user" class="btn btn-sm btn-danger">Retour</a>
     <form action="/update/user" method="POST" class="form-group">
         @csrf
         <input type="text" name="id" class="form-control" style="display: none" value="{{ $user->id }}">

@@ -80,6 +80,7 @@
             </td>
         </tr>
         @endforeach
+        <a href="/admin" class="btn btn-sm btn-danger">Retour au menu</a>
         </tbody>
     </table>
 

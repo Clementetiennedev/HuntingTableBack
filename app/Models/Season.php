@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -27,7 +28,8 @@ class Season extends Model
         'title',
         'animal',
         'quota',
-        'statut'
+        'statut',
+        'society_id'
     ];
 
     /**
@@ -45,4 +47,8 @@ class Season extends Model
      */
     protected $casts = [
     ];
+
+    public function society(): HasOne{
+        return $this->hasOne(Society::class);
+    }
 }

@@ -21,7 +21,6 @@ class SocietyFactory extends Factory
             'description' => fake()->text(50),
             'federation_id' => '1',
             'user_id' => '1',
-            'season_id' => '1',
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Season;
+use App\Models\Society;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -29,9 +30,19 @@ class SeasonController extends Controller
     {
         $data = $request->all();
 
-        $season = Season::create($data);
+        try {
+            if (!$request->has('society_id')) {
+                throw new \Exception('Une saison de chasse doit être liée à une societé');
+            }
+            $season = Season::create($data);
 
-        return response()->json($season, 201);
+            $society = Society::findOrFail($request->input('society_id'));
+            $society->season_id = $season->id;
+
+            return response()->json($season, 201);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 
     public function update(Request $request, $id): JsonResponse

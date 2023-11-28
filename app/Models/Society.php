@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static firstOrFail($id)
  * @method static where(string $string, mixed $id)
  * @method static create(array $data)
+ * @method static findOrFail(mixed $input)
  */
 class Society extends Model
 {
@@ -28,7 +29,6 @@ class Society extends Model
         'statut',
         'user_id',
         'federation_id',
-        'season_id',
     ];
 
     /**
@@ -52,9 +52,5 @@ class Society extends Model
      */
     public function user(): HasOne{
         return $this->hasOne(User::class);
-    }
-
-    public function season(): HasOne{
-        return $this-> hasOne(Season::class);
     }
 }

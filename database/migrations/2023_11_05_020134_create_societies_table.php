@@ -25,7 +25,6 @@ return new class extends Migration
             //Foreign key
             $table->foreignIdFor(Federation::class);
             $table-> foreignIdFor(User::class)->constrained()->cascadeOnDelete();
-            $table-> foreignIdFor(Season::class)->nullable()->constrained()->cascadeOnDelete();
         });
     }
 

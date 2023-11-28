@@ -80,8 +80,13 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(Hunter::class);
     }
 
-    public function hunts()
+    public function huntsH()
     {
         return $this->hasManyThrough(Hunt::class, Hunter::class);
+    }
+
+    public function huntsS()
+    {
+        return $this->hasManyThrough(Hunt::class, Society::class);
     }
 }

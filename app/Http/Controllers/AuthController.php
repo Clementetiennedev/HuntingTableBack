@@ -150,7 +150,6 @@ class AuthController extends Controller
     public function logout(Request $request) : JsonResponse
     {
         $user = auth()->user();
-        dd($user);
         if ($user) {
             $tokenId = $user->currentAccessToken()->id;
             $user->tokens()->where('id', $tokenId)->delete();
@@ -161,13 +160,17 @@ class AuthController extends Controller
 
     public function me(Request $request) : JsonResponse
     {
-        $user = User::where('id', $request->user()->id)
-            ->with('rank', 'role', 'badges', 'medias', 'comments', 'likes', 'badges.badge')
-            ->first();
-
+        $user = auth()->user();
         if ($user) {
-            return response()->json($user);
+            return response()->json([
+                'id' => $user->id,
+                'role_id' => $user->role_id,
+            ]);
+        } else {
+            return response()->json([
+
+            ]);
         }
-        return response()->json(['error' => ('lang.unauthorized')], 403);
     }
+    
 }

@@ -79,7 +79,12 @@ class HuntController extends Controller
         try {
             $user = auth()->user();
 
-            $user = User::where('id', $user->id)->get()->pluck('hunts');
+            if ($user->role_id == 2) {
+                $user = User::where('id', $user->id)->get()->pluck('huntsH');
+            } else {
+                $user = User::where('id', $user->id)->get()->pluck('huntsS');
+            }
+
 
             if ($user) {
                 return response()->json([

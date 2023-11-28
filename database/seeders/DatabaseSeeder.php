@@ -10,6 +10,7 @@ use App\Models\Kill;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Society;
+use App\Models\Federation;
 use App\Models\Season;
 use Database\Factories\DepartmentFactory;
 use Database\Factories\RoleFactory;
@@ -31,5 +32,6 @@ class DatabaseSeeder extends Seeder
         Kill::factory(3)->create();
         Season::factory(3)->create();
         Society::factory(3)->create();
+        Federation::factory(1)->create();
     }
 }

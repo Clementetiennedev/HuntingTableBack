@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Season;
 use App\Models\Society;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -28,21 +29,34 @@ class SeasonController extends Controller
 
     public function store(Request $request): JsonResponse
     {
-        $data = $request->all();
+        $user = auth()->user();
 
-        try {
-            if (!$request->has('society_id')) {
-                throw new \Exception('Une saison de chasse doit être liée à une societé');
-            }
-            $season = Season::create($data);
+        $society = Society::where('user_id', $user->id)->first();
+        $season = Season::create([
+            'title' => $request->input('title'),
+            'dateDebut' => $request->input('dateDebut'),
+            'dateFin' => $request->input('dateFin'),
+            'animal' => $request->input('animal'),
+            'quota' => $request->input('quota'),
+            'society_id' => $society->id,
+        ]);
 
-            $society = Society::findOrFail($request->input('society_id'));
-            $society->season_id = $season->id;
+        return response()->json(['message' => 'Data saved successfully']);
+    }
 
-            return response()->json($season, 201);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 400);
+    public function getSeasonBySocietyId(Request $request)
+    {
+
+        $societyId = $request->input('society_id');
+        $society = Society::with('seasons')->find($societyId);
+
+        if ($society) {
+            $seasons = $society->seasons;
+            return response()->json(['seasons' => $seasons]);
+        } else {
+            return response()->json(['message' => 'Society not found'], 404);
         }
+
     }
 
     public function update(Request $request, $id): JsonResponse

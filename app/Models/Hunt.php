@@ -46,7 +46,13 @@ class Hunt extends Model
     public function hunter(): HasOne{
         return $this->hasOne(Hunter::class);
     }
+
     public function society(): HasOne{
         return $this->hasOne(Society::class);
+    }
+
+    public function kills()
+    {
+        return $this->hasMany(Kill::class);
     }
 }

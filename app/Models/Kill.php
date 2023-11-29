@@ -24,6 +24,7 @@ class Kill extends Model
         'number',
         'animal',
         'statut',
+        'hunt_id',
     ];
 
     /**

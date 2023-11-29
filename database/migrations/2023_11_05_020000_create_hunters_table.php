@@ -22,7 +22,6 @@ return new class extends Migration
             $table->timestamps();
             //Foreign Keys
             $table-> foreignIdFor(User::class)->constrained()->cascadeOnDelete();
-            $table -> foreignIdFor(Hunt::class)->nullable();
 
         });
     }

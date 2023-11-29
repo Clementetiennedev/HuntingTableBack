@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kill;
+use App\Models\Hunt;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -36,6 +37,21 @@ class KillController extends Controller
         $kill = Kill::create($data);
 
         return response()->json($kill, 201);
+    }
+
+    public function getKillByHuntId(Request $request)
+    {
+
+        $huntId = $request->input('hunt_id');
+        $hunt = Hunt::with('kills')->find($huntId);
+
+        if ($hunt) {
+            $kills = $hunt->kills;
+            return response()->json(['kills' => $kills]);
+        } else {
+            return response()->json(['message' => 'Hunt not found'], 404);
+        }
+
     }
 
     public function update(Request $request, $id): JsonResponse

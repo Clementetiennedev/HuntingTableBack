@@ -42,7 +42,7 @@ Route::post('/hunt/', [HuntController::class, "store"]);
 Route::patch('/hunt/{hunt}', [HuntController::class, "update"]);
 Route::delete('/hunt/{hunt}', [HuntController::class, "delete"]);
 Route::get('/hunts/current', [HuntController::class, "getHuntsForCurrentUser"])->middleware('auth:sanctum');
-//Route::middleware('auth:api')->get('/hunts/current', [HuntController::class, "getHuntsForCurrentUser"]);
+Route::post('/hunts/stores', [HuntController::class, "stores"])->middleware('auth:sanctum');
 
 
 //Routes for KillController
@@ -51,6 +51,7 @@ Route::get('/kill/{kill}', [KillController::class, "show"]);
 Route::post('/kill/', [KillController::class, "store"]);
 Route::patch('/kill/{kill}', [KillController::class, "update"]);
 Route::delete('/kill/{kill}', [KillController::class, "delete"]);
+Route::get('/kill', [KillController::class, "getKillByHuntId"])->middleware('auth:sanctum');
 
 //Routes for FederationController
 Route::get('/federation', [FederationController::class, "index"]);
@@ -62,9 +63,10 @@ Route::delete('/federation/{federation}', [FederationController::class, "delete"
 //Routes for SeasonController
 Route::get('/season', [SeasonController::class, "index"]);
 Route::get('/season/{season}', [SeasonController::class, "show"]);
-Route::post('/season/', [SeasonController::class, "store"]);
+Route::post('/season/', [SeasonController::class, "store"])->middleware('auth:sanctum');
 Route::patch('/season/{season}', [SeasonController::class, "update"]);
 Route::delete('/season/{season}', [SeasonController::class, "delete"]);
+Route::get('/season', [SeasonController::class, "getSeasonBySocietyId"])->middleware('auth:sanctum');
 
 //Routes for SocietyController
 Route::get('/society', [SocietyController::class, "index"]);
@@ -75,8 +77,8 @@ Route::delete('/society/{society}', [SocietyController::class, "delete"]);
 
 Route::post('/login', [AuthController::class, "login"])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('api.reg');
-Route::post('/logout', [AuthController::class, 'logout'])->name('api.log');
-Route::post('/me', [AuthController::class, 'me'])->name('api.me');
+Route::post('/logout', [AuthController::class, 'logout'])->name('api.log')->middleware('auth:sanctum');
+Route::get('/me', [AuthController::class, 'me'])->name('api.me')->middleware('auth:sanctum');
 Route::group([
 
     'middleware' => 'api',

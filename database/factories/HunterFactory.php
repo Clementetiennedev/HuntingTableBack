@@ -22,7 +22,6 @@ class HunterFactory extends Factory
             'lastName' => fake()->lastName,
             'phone' => fake()->phoneNumber,
             'user_id' => '2',
-            'hunt_id' => '1',
         ];
     }
 }

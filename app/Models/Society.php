@@ -53,4 +53,13 @@ class Society extends Model
     public function user(): HasOne{
         return $this->hasOne(User::class);
     }
+
+    public function hunt(): HasMany{
+        return $this->hasMany(Hunt::class);
+    }
+
+    public function seasons()
+    {
+        return $this->hasMany(Season::class);
+    }
 }

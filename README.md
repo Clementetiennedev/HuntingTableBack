@@ -16,7 +16,8 @@ cd hunting-table
 npm install
 composer install
 Copier coller le .env.example dans le projet et le rennomer en .env
-Creer la base de donnée avec la commande create database « nom de bdd »
-Il faudra dedans rentrer le nom de la base de donnée, le password et l’username de votre host ainsi que votre url host (wsl ou wamp)
-php artisan migrate:fresh --seed
+php artisan migrate
+Choisir "oui" a la prochaine question pour que la base de donnée sois creer directement
+php artisan migrate:fresh --seed (Pour remplir votre base de donnée)
+Il faudra dedans rentrer le nom de la base de donnée, le password et l’username de votre host ainsi que votre url host (wsl ou wamp) dans le .env
 php artisan serve

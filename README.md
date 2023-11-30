@@ -5,7 +5,7 @@ Hunting Table est un projet de gestion de chasse développé en utilisant le fra
 ## Version
 
 php 8.1.10 \
-laravel Installer 5.1.3
+laravel Installer 5.1.3 \
 Composer 2.2.22
 
 ## Installation

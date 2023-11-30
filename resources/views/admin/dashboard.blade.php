@@ -41,24 +41,14 @@
 <body>
 
 <div class="container">
-    <h2>Bienvenue dans le Backoffice</h2>
+    <h2>Bienvenue dans le Backoffice <br> de Hunting Table</h2>
 
     <div class="btn-container">
         <div class="btn-group">
             <a href="/user" class="btn btn-primary">Gérer les Utilisateurs</a>
-            <a href="/user" class="btn btn-primary">Gérer les Sociétés</a>
+            <a href="/society" class="btn btn-primary">Gérer les Sociétés</a>
         </div>
 
-        <div class="btn-group">
-            <a href="/user" class="btn btn-primary">Gérer les Fédérations</a>
-            <a href="/user" class="btn btn-primary">Gérer les Animaux</a>
-        </div>
-
-        <div class="btn-group">
-            <a href="/user" class="btn btn-primary">Tableau de Bord</a>
-            <a href="/user" class="btn btn-primary">Tableau de Bord</a>
-        </div>
-    </div>
 </div>
 
 <!-- Lien vers jQuery et Bootstrap (ajustez le chemin selon votre configuration) -->

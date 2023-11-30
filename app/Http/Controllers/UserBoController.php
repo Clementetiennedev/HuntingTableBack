@@ -1,5 +1,5 @@
 <?php
-//app/Http/Controllers/AdminController.php
+//app/Http/Controllers/UserBoController.php
 
 namespace App\Http\Controllers;
 
@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\DataTables;
 
-class AdminController extends Controller
+class UserBoController extends Controller
 {
-    public function index(Request $request)
+    public function indexUser(Request $request)
     {
         $data = User::all();
         return view('user.liste', compact('data'));
@@ -54,4 +54,6 @@ class AdminController extends Controller
         $user->save();
         return redirect('/user');
     }
+
+
 }
